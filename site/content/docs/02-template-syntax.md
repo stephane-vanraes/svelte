@@ -2,12 +2,11 @@
 title: Template syntax
 ---
 
-
 ### Tags
 
 ---
 
-A lowercase tag, like `<div>`, denotes a regular HTML element. A capitalised tag, such as `<Widget>` or `<Namespace.Widget>`, indicates a *component*.
+A lowercase tag, like `<div>`, denotes a regular HTML element. A capitalised tag, such as `<Widget>` or `<Namespace.Widget>`, indicates a _component_.
 
 ```sv
 <script>
@@ -18,7 +17,6 @@ A lowercase tag, like `<div>`, denotes a regular HTML element. A capitalised tag
 	<Widget/>
 </div>
 ```
-
 
 ### Attributes and props
 
@@ -50,7 +48,7 @@ Attribute values can contain JavaScript expressions.
 
 ---
 
-Or they can *be* JavaScript expressions.
+Or they can _be_ JavaScript expressions.
 
 ```sv
 <button disabled={!clickable}>...</button>
@@ -63,8 +61,8 @@ Boolean attributes are included on the element if their value is [truthy](https:
 All other attributes are included unless their value is [nullish](https://developer.mozilla.org/en-US/docs/Glossary/Nullish) (`null` or `undefined`).
 
 ```html
-<input required={false} placeholder="This input field is not required">
-<div title={null}>This div has no title attribute</div>
+<input required="{false}" placeholder="This input field is not required" />
+<div title="{null}">This div has no title attribute</div>
 ```
 
 ---
@@ -87,7 +85,7 @@ When the attribute name and value match (`name={name}`), they can be replaced wi
 
 ---
 
-By convention, values passed to components are referred to as *properties* or *props* rather than *attributes*, which are a feature of the DOM.
+By convention, values passed to components are referred to as _properties_ or _props_ rather than _attributes_, which are a feature of the DOM.
 
 As with elements, `name={name}` can be replaced with the `{name}` shorthand.
 
@@ -97,7 +95,7 @@ As with elements, `name={name}` can be replaced with the `{name}` shorthand.
 
 ---
 
-*Spread attributes* allow many attributes or properties to be passed to an element or component at once.
+_Spread attributes_ allow many attributes or properties to be passed to an element or component at once.
 
 An element or component can have multiple spread attributes, interspersed with regular ones.
 
@@ -107,7 +105,7 @@ An element or component can have multiple spread attributes, interspersed with r
 
 ---
 
-*`$$props`* references all props that are passed to a component, including ones that are not declared with `export`. It is not generally recommended, as it is difficult for Svelte to optimise. But it can be useful in rare cases – for example, when you don't know at compile time what props might be passed to a component.
+_`$$props`_ references all props that are passed to a component, including ones that are not declared with `export`. It is not generally recommended, as it is difficult for Svelte to optimise. But it can be useful in rare cases – for example, when you don't know at compile time what props might be passed to a component.
 
 ```sv
 <Widget {...$$props}/>
@@ -115,12 +113,11 @@ An element or component can have multiple spread attributes, interspersed with r
 
 ---
 
-*`$$restProps`* contains only the props which are *not* declared with `export`. It can be used to pass down other unknown attributes to an element in a component. It shares the same optimisation problems as *`$$props`*, and is likewise not recommended.
+_`$$restProps`_ contains only the props which are _not_ declared with `export`. It can be used to pass down other unknown attributes to an element in a component. It shares the same optimisation problems as _`$$props`_, and is likewise not recommended.
 
 ```html
-<input {...$$restProps}>
+<input {...$$restProps} />
 ```
-
 
 > The `value` attribute of an `input` element or its children `option` elements must not be set with spread attributes when using `bind:group` or `bind:checked`. Svelte needs to be able to see the element's `value` directly in the markup in these cases so that it can link it to the bound variable.
 
@@ -140,7 +137,6 @@ Text can also contain JavaScript expressions:
 <h1>Hello {name}!</h1>
 <p>{a} + {b} = {a + b}.</p>
 ```
-
 
 ### Comments
 
@@ -162,15 +158,16 @@ Comments beginning with `svelte-ignore` disable warnings for the next block of m
 <input bind:value={name} autofocus>
 ```
 
-
 ### {#if ...}
 
 ```sv
 {#if expression}...{/if}
 ```
+
 ```sv
 {#if expression}...{:else if expression}...{/if}
 ```
+
 ```sv
 {#if expression}...{:else}...{/if}
 ```
@@ -199,21 +196,24 @@ Additional conditions can be added with `{:else if expression}`, optionally endi
 {/if}
 ```
 
-
 ### {#each ...}
 
 ```sv
 {#each expression as name}...{/each}
 ```
+
 ```sv
 {#each expression as name, index}...{/each}
 ```
+
 ```sv
 {#each expression as name (key)}...{/each}
 ```
+
 ```sv
 {#each expression as name, index (key)}...{/each}
 ```
+
 ```sv
 {#each expression as name}...{:else}...{/each}
 ```
@@ -235,7 +235,7 @@ You can use each blocks to iterate over any array or array-like value — that i
 
 ---
 
-An each block can also specify an *index*, equivalent to the second argument in an `array.map(...)` callback:
+An each block can also specify an _index_, equivalent to the second argument in an `array.map(...)` callback:
 
 ```sv
 {#each items as item, i}
@@ -245,7 +245,7 @@ An each block can also specify an *index*, equivalent to the second argument in 
 
 ---
 
-If a *key* expression is provided — which must uniquely identify each list item — Svelte will use it to diff the list when data changes, rather than adding or removing items at the end. The key can be any object, but strings and numbers are recommended since they allow identity to persist when the objects themselves change.
+If a _key_ expression is provided — which must uniquely identify each list item — Svelte will use it to diff the list when data changes, rather than adding or removing items at the end. The key can be any object, but strings and numbers are recommended since they allow identity to persist when the objects themselves change.
 
 ```sv
 {#each items as item (item.id)}
@@ -288,18 +288,20 @@ An each block can also have an `{:else}` clause, which is rendered if the list i
 {/each}
 ```
 
-
 ### {#await ...}
 
 ```sv
 {#await expression}...{:then name}...{:catch name}...{/await}
 ```
+
 ```sv
 {#await expression}...{:then name}...{/await}
 ```
+
 ```sv
 {#await expression then name}...{/await}
 ```
+
 ```sv
 {#await expression catch name}...{/await}
 ```
@@ -393,7 +395,7 @@ When used around components, this will cause them to be reinstantiated and reini
 
 In a text expression, characters like `<` and `>` are escaped; however, with HTML expressions, they're not.
 
-The expression should be valid standalone HTML — `{@html "<div>"}content{@html "</div>"}` will *not* work, because `</div>` is not valid HTML.
+The expression should be valid standalone HTML — `{@html "<div>"}content{@html "</div>"}` will _not_ work, because `</div>` is not valid HTML.
 
 > Svelte does not sanitize expressions before injecting HTML. If the data comes from an untrusted source, you must sanitize it, or you are exposing your users to an XSS vulnerability.
 
@@ -404,12 +406,12 @@ The expression should be valid standalone HTML — `{@html "<div>"}content{@html
 </div>
 ```
 
-
 ### {@debug ...}
 
 ```sv
 {@debug}
 ```
+
 ```sv
 {@debug var1, var2, ..., varN}
 ```
@@ -447,20 +449,18 @@ The `{@debug ...}` tag offers an alternative to `console.log(...)`. It logs the 
 {@debug typeof user === 'object'}
 ```
 
-The `{@debug}` tag without any arguments will insert a `debugger` statement that gets triggered when *any* state changes, as opposed to the specified variables.
-
-
+The `{@debug}` tag without any arguments will insert a `debugger` statement that gets triggered when _any_ state changes, as opposed to the specified variables.
 
 ### Element directives
 
-As well as attributes, elements can have *directives*, which control the element's behaviour in some way.
+As well as attributes, elements can have _directives_, which control the element's behaviour in some way.
 
-
-#### [on:*eventname*](on_element_event)
+#### [on:_eventname_](on_element_event)
 
 ```sv
 on:eventname={handler}
 ```
+
 ```sv
 on:eventname|modifiers={handler}
 ```
@@ -495,7 +495,7 @@ Handlers can be declared inline with no performance penalty. As with attributes,
 
 ---
 
-Add *modifiers* to DOM events with the `|` character.
+Add _modifiers_ to DOM events with the `|` character.
 
 ```sv
 <form on:submit|preventDefault={handleSubmit}>
@@ -506,19 +506,19 @@ Add *modifiers* to DOM events with the `|` character.
 
 The following modifiers are available:
 
-* `preventDefault` — calls `event.preventDefault()` before running the handler
-* `stopPropagation` — calls `event.stopPropagation()`, preventing the event reaching the next element
-* `passive` — improves scrolling performance on touch/wheel events (Svelte will add it automatically where it's safe to do so)
-* `nonpassive` — explicitly set `passive: false`
-* `capture` — fires the handler during the *capture* phase instead of the *bubbling* phase
-* `once` — remove the handler after the first time it runs
-* `self` — only trigger handler if event.target is the element itself
+- `preventDefault` — calls `event.preventDefault()` before running the handler
+- `stopPropagation` — calls `event.stopPropagation()`, preventing the event reaching the next element
+- `passive` — improves scrolling performance on touch/wheel events (Svelte will add it automatically where it's safe to do so)
+- `nonpassive` — explicitly set `passive: false`
+- `capture` — fires the handler during the _capture_ phase instead of the _bubbling_ phase
+- `once` — remove the handler after the first time it runs
+- `self` — only trigger handler if event.target is the element itself
 
 Modifiers can be chained together, e.g. `on:click|once|capture={...}`.
 
 ---
 
-If the `on:` directive is used without a value, the component will *forward* the event, meaning that a consumer of the component can listen for it.
+If the `on:` directive is used without a value, the component will _forward_ the event, meaning that a consumer of the component can listen for it.
 
 ```sv
 <button on:click>
@@ -545,7 +545,7 @@ It's possible to have multiple event listeners for the same event:
 <button on:click={increment} on:click={track}>Click me!</button>
 ```
 
-#### [bind:*property*](bind_element_property)
+#### [bind:_property_](bind_element_property)
 
 ```sv
 bind:property={variable}
@@ -597,7 +597,6 @@ On `<input>` elements with `type="file"`, you can use `bind:files` to get the [`
 	type="file"
 />
 ```
-
 
 ##### Binding `<select>` value
 
@@ -651,22 +650,22 @@ Elements with the `contenteditable` attribute support `innerHTML` and `textConte
 
 ---
 
-Media elements (`<audio>` and `<video>`) have their own set of bindings — six *readonly* ones...
+Media elements (`<audio>` and `<video>`) have their own set of bindings — six _readonly_ ones...
 
-* `duration` (readonly) — the total duration of the video, in seconds
-* `buffered` (readonly) — an array of `{start, end}` objects
-* `played` (readonly) — ditto
-* `seekable` (readonly) — ditto
-* `seeking` (readonly) — boolean
-* `ended` (readonly) — boolean
+- `duration` (readonly) — the total duration of the video, in seconds
+- `buffered` (readonly) — an array of `{start, end}` objects
+- `played` (readonly) — ditto
+- `seekable` (readonly) — ditto
+- `seeking` (readonly) — boolean
+- `ended` (readonly) — boolean
 
-...and five *two-way* bindings:
+...and five _two-way_ bindings:
 
-* `currentTime` — the current playback time in the video, in seconds
-* `playbackRate` — how fast or slow to play the video, where 1 is 'normal'
-* `paused` — this one should be self-explanatory
-* `volume` — a value between 0 and 1
-* `muted` — a boolean value where `true` is muted
+- `currentTime` — the current playback time in the video, in seconds
+- `playbackRate` — how fast or slow to play the video, where 1 is 'normal'
+- `paused` — this one should be self-explanatory
+- `volume` — a value between 0 and 1
+- `muted` — a boolean value where `true` is muted
 
 Videos additionally have readonly `videoWidth` and `videoHeight` bindings.
 
@@ -695,10 +694,10 @@ Videos additionally have readonly `videoWidth` and `videoHeight` bindings.
 
 Block-level elements have 4 readonly bindings, measured using a technique similar to [this one](http://www.backalleycoder.com/2013/03/18/cross-browser-event-based-element-resize-detection/):
 
-* `clientWidth`
-* `clientHeight`
-* `offsetWidth`
-* `offsetHeight`
+- `clientWidth`
+- `clientHeight`
+- `offsetWidth`
+- `offsetHeight`
 
 ```sv
 <div
@@ -762,12 +761,12 @@ To get a reference to a DOM node, use `bind:this`.
 <canvas bind:this={canvasElement}></canvas>
 ```
 
-
-#### class:*name*
+#### class:_name_
 
 ```sv
 class:name={value}
 ```
+
 ```sv
 class:name
 ```
@@ -788,12 +787,12 @@ A `class:` directive provides a shorter way of toggling a class on an element.
 <div class:active class:inactive={!active} class:isAdmin>...</div>
 ```
 
-
-#### use:*action*
+#### use:_action_
 
 ```sv
 use:action
 ```
+
 ```sv
 use:action={parameters}
 ```
@@ -853,22 +852,23 @@ An action can have a parameter. If the returned value has an `update` method, it
 <div use:foo={bar}></div>
 ```
 
-
-#### transition:*fn*
+#### transition:_fn_
 
 ```sv
 transition:fn
 ```
+
 ```sv
 transition:fn={params}
 ```
+
 ```sv
 transition:fn|local
 ```
+
 ```sv
 transition:fn|local={params}
 ```
-
 
 ```js
 transition = (node: HTMLElement, params: any) => {
@@ -886,7 +886,7 @@ A transition is triggered by an element entering or leaving the DOM as a result 
 
 When a block is transitioning out, all elements inside the block, including those that do not have their own transitions, are kept in the DOM until every transition in the block has completed.
 
-The `transition:` directive indicates a *bidirectional* transition, which means it can be smoothly reversed while the transition is in progress.
+The `transition:` directive indicates a _bidirectional_ transition, which means it can be smoothly reversed while the transition is in progress.
 
 ```sv
 {#if visible}
@@ -920,9 +920,9 @@ Like actions, transitions can have parameters.
 
 Transitions can use custom functions. If the returned object has a `css` function, Svelte will create a CSS animation that plays on the element.
 
-The `t` argument passed to `css` is a value between `0` and `1` after the `easing` function has been applied. *In* transitions run from `0` to `1`, *out* transitions run from `1` to `0` — in other words `1` is the element's natural state, as though no transition had been applied. The `u` argument is equal to `1 - t`.
+The `t` argument passed to `css` is a value between `0` and `1` after the `easing` function has been applied. _In_ transitions run from `0` to `1`, _out_ transitions run from `1` to `0` — in other words `1` is the element's natural state, as though no transition had been applied. The `u` argument is equal to `1 - t`.
 
-The function is called repeatedly *before* the transition begins, with different `t` and `u` arguments.
+The function is called repeatedly _before_ the transition begins, with different `t` and `u` arguments.
 
 ```sv
 <script>
@@ -951,7 +951,7 @@ The function is called repeatedly *before* the transition begins, with different
 
 ---
 
-A custom transition function can also return a `tick` function, which is called *during* the transition with the same `t` and `u` arguments.
+A custom transition function can also return a `tick` function, which is called _during_ the transition with the same `t` and `u` arguments.
 
 > If it's possible to use `css` instead of `tick`, do so — CSS animations can run off the main thread, preventing jank on slower devices.
 
@@ -989,17 +989,16 @@ A custom transition function can also return a `tick` function, which is called 
 
 If a transition returns a function instead of a transition object, the function will be called in the next microtask. This allows multiple transitions to coordinate, making [crossfade effects](tutorial/deferred-transitions) possible.
 
-
 ##### Transition events
 
 ---
 
 An element with transitions will dispatch the following events in addition to any standard DOM events:
 
-* `introstart`
-* `introend`
-* `outrostart`
-* `outroend`
+- `introstart`
+- `introend`
+- `outrostart`
+- `outroend`
 
 ```sv
 {#if visible}
@@ -1017,7 +1016,7 @@ An element with transitions will dispatch the following events in addition to an
 
 ---
 
-Local transitions only play when the block they belong to is created or destroyed, *not* when parent blocks are created or destroyed.
+Local transitions only play when the block they belong to is created or destroyed, _not_ when parent blocks are created or destroyed.
 
 ```sv
 {#if x}
@@ -1033,18 +1032,20 @@ Local transitions only play when the block they belong to is created or destroye
 {/if}
 ```
 
-
-#### in:*fn*/out:*fn*
+#### in:_fn_/out:_fn_
 
 ```sv
 in:fn
 ```
+
 ```sv
 in:fn={params}
 ```
+
 ```sv
 in:fn|local
 ```
+
 ```sv
 in:fn|local={params}
 ```
@@ -1052,12 +1053,15 @@ in:fn|local={params}
 ```sv
 out:fn
 ```
+
 ```sv
 out:fn={params}
 ```
+
 ```sv
 out:fn|local
 ```
+
 ```sv
 out:fn|local={params}
 ```
@@ -1076,9 +1080,7 @@ Unlike with `transition:`, transitions applied with `in:` and `out:` are not bid
 {/if}
 ```
 
-
-
-#### animate:*fn*
+#### animate:_fn_
 
 ```sv
 animate:name
@@ -1113,7 +1115,7 @@ DOMRect {
 
 ---
 
-An animation is triggered when the contents of a [keyed each block](docs#each) are re-ordered. Animations do not run when an element is removed, only when the each block's data is reordered. Animate directives must be on an element that is an *immediate* child of a keyed each block.
+An animation is triggered when the contents of a [keyed each block](docs#each) are re-ordered. Animations do not run when an element is removed, only when the each block's data is reordered. Animate directives must be on an element that is an _immediate_ child of a keyed each block.
 
 Animations can be used with Svelte's [built-in animation functions](docs#svelte_animate) or [custom animation functions](docs#Custom_animation_functions).
 
@@ -1148,8 +1150,7 @@ If the returned object has a `css` method, Svelte will create a CSS animation th
 
 The `t` argument passed to `css` is a value that goes from `0` and `1` after the `easing` function has been applied. The `u` argument is equal to `1 - t`.
 
-The function is called repeatedly *before* the animation begins, with different `t` and `u` arguments.
-
+The function is called repeatedly _before_ the animation begins, with different `t` and `u` arguments.
 
 ```sv
 <script>
@@ -1179,8 +1180,7 @@ The function is called repeatedly *before* the animation begins, with different 
 
 ---
 
-
-A custom animation function can also return a `tick` function, which is called *during* the animation with the same `t` and `u` arguments.
+A custom animation function can also return a `tick` function, which is called _during_ the animation with the same `t` and `u` arguments.
 
 > If it's possible to use `css` instead of `tick`, do so — CSS animations can run off the main thread, preventing jank on slower devices.
 
@@ -1214,7 +1214,7 @@ A custom animation function can also return a `tick` function, which is called *
 
 ### Component directives
 
-#### [on:*eventname*](on_component_event)
+#### [on:_eventname_](on_component_event)
 
 ```sv
 on:eventname={handler}
@@ -1230,14 +1230,13 @@ Components can emit events using [createEventDispatcher](docs#createEventDispatc
 
 ---
 
-As with DOM events, if the `on:` directive is used without a value, the component will *forward* the event, meaning that a consumer of the component can listen for it.
+As with DOM events, if the `on:` directive is used without a value, the component will _forward_ the event, meaning that a consumer of the component can listen for it.
 
 ```sv
 <SomeComponent on:whatever/>
 ```
 
-
-#### [bind:*property*](bind_component_property)
+#### [bind:_property_](bind_component_property)
 
 ```sv
 bind:property={variable}
@@ -1271,16 +1270,16 @@ Components also support `bind:this`, allowing you to interact with component ins
 </button>
 ```
 
-
-
 ### `<slot>`
 
 ```sv
 <slot><!-- optional fallback --></slot>
 ```
+
 ```sv
 <slot name="x"><!-- optional fallback --></slot>
 ```
+
 ```sv
 <slot prop={value}></slot>
 ```
@@ -1307,7 +1306,7 @@ The content is exposed in the child component using the `<slot>` element, which 
 </Widget>
 ```
 
-#### [`<slot name="`*name*`">`](slot_name)
+#### [`<slot name="`_name_`">`](slot_name)
 
 ---
 
@@ -1349,7 +1348,6 @@ In order to place content in a slot without using a wrapper element, you can use
 </Widget>
 ```
 
-
 #### [`$$slots`](slots_object)
 
 ---
@@ -1376,11 +1374,11 @@ Note that explicitly passing in an empty named slot will add that slot's name to
 </Card>
 ```
 
-#### [`<slot let:`*name*`={`*value*`}>`](slot_let)
+#### [`<slot let:`_name_`={`_value_`}>`](slot_let)
 
 ---
 
-Slots can be rendered zero or more times, and can pass values *back* to the parent using props. The parent exposes the values to the slot template using the `let:` directive.
+Slots can be rendered zero or more times, and can pass values _back_ to the parent using props. The parent exposes the values to the slot template using the `let:` directive.
 
 The usual shorthand rules apply — `let:item` is equivalent to `let:item={item}`, and `<slot {item}>` is equivalent to `<slot item={item}>`.
 
@@ -1423,7 +1421,6 @@ Named slots can also expose values. The `let:` directive goes on the element wit
 </FancyList>
 ```
 
-
 ### `<svelte:self>`
 
 ---
@@ -1461,12 +1458,12 @@ If `this` is falsy, no component is rendered.
 <svelte:component this={currentSelection.component} foo={bar}/>
 ```
 
-
 ### `<svelte:window>`
 
 ```sv
 <svelte:window on:event={handler}/>
 ```
+
 ```sv
 <svelte:window bind:prop={value}/>
 ```
@@ -1474,6 +1471,8 @@ If `this` is falsy, no component is rendered.
 ---
 
 The `<svelte:window>` element allows you to add event listeners to the `window` object without worrying about removing them when the component is destroyed, or checking for the existence of `window` when server-side rendering.
+
+It can only be at the top level of your markup and must never be inside an block or element.
 
 ```sv
 <script>
@@ -1489,20 +1488,19 @@ The `<svelte:window>` element allows you to add event listeners to the `window` 
 
 You can also bind to the following properties:
 
-* `innerWidth`
-* `innerHeight`
-* `outerWidth`
-* `outerHeight`
-* `scrollX`
-* `scrollY`
-* `online` — an alias for window.navigator.onLine
+- `innerWidth`
+- `innerHeight`
+- `outerWidth`
+- `outerHeight`
+- `scrollX`
+- `scrollY`
+- `online` — an alias for window.navigator.onLine
 
 All except `scrollX` and `scrollY` are readonly.
 
 ```sv
 <svelte:window bind:scrollY={y}/>
 ```
-
 
 ### `<svelte:body>`
 
@@ -1512,7 +1510,7 @@ All except `scrollX` and `scrollY` are readonly.
 
 ---
 
-As with `<svelte:window>`, this element allows you to add listeners to events on `document.body`, such as `mouseenter` and `mouseleave` which don't fire on `window`.
+As with `<svelte:window>`, this element allows you to add listeners to events on `document.body`, such as `mouseenter` and `mouseleave` which don't fire on `window`; and it has to appear at the top level of your component.
 
 ```sv
 <svelte:body
@@ -1520,7 +1518,6 @@ As with `<svelte:window>`, this element allows you to add listeners to events on
 	on:mouseleave={handleMouseleave}
 />
 ```
-
 
 ### `<svelte:head>`
 
@@ -1532,12 +1529,13 @@ As with `<svelte:window>`, this element allows you to add listeners to events on
 
 This element makes it possible to insert elements into `document.head`. During server-side rendering, `head` content is exposed separately to the main `html` content.
 
+As with `<svelte:window>` and `<svelte:head>` this element has to appear at the top level of your component and cannot be inside a block or other element.
+
 ```sv
 <svelte:head>
 	<link rel="stylesheet" href="tutorial/dark-theme.css">
 </svelte:head>
 ```
-
 
 ### `<svelte:options>`
 
@@ -1549,12 +1547,12 @@ This element makes it possible to insert elements into `document.head`. During s
 
 The `<svelte:options>` element provides a place to specify per-component compiler options, which are detailed in the [compiler section](docs#svelte_compile). The possible options are:
 
-* `immutable={true}` — you never use mutable data, so the compiler can do simple referential equality checks to determine if values have changed
-* `immutable={false}` — the default. Svelte will be more conservative about whether or not mutable objects have changed
-* `accessors={true}` — adds getters and setters for the component's props
-* `accessors={false}` — the default
-* `namespace="..."` — the namespace where this component will be used, most commonly "svg"; use the "foreign" namespace to opt out of case-insensitive attribute names and HTML-specific warnings
-* `tag="..."` — the name to use when compiling this component as a custom element
+- `immutable={true}` — you never use mutable data, so the compiler can do simple referential equality checks to determine if values have changed
+- `immutable={false}` — the default. Svelte will be more conservative about whether or not mutable objects have changed
+- `accessors={true}` — adds getters and setters for the component's props
+- `accessors={false}` — the default
+- `namespace="..."` — the namespace where this component will be used, most commonly "svg"; use the "foreign" namespace to opt out of case-insensitive attribute names and HTML-specific warnings
+- `tag="..."` — the name to use when compiling this component as a custom element
 
 ```sv
 <svelte:options tag="my-custom-element"/>
